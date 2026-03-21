@@ -20,6 +20,7 @@ app.add_middleware(
     allow_origins=[
         "https://geographyninja.com",
         "https://geoninja-zeta.vercel.app",
+        "https://geoninja-d6r7jpb4r-bentley-michaels-projects.vercel.app",
         "http://localhost:5173",
     ],
     allow_credentials=True,
