@@ -33,7 +33,7 @@ supabase: Client = create_client(
     os.environ["SUPABASE_ANON_KEY"],
 )
 resend.api_key = os.environ["RESEND_API_KEY"]
-FROM_EMAIL = "GeoNinja <reminders@geographyninja.com>"
+FROM_EMAIL = "GeoNinja <onboarding@resend.dev>"
 
 # ─── Models ───────────────────────────────────────────────────────────────────
 class SaveScoreRequest(BaseModel):
