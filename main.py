@@ -218,7 +218,8 @@ def alltime_leaderboard():
 
 @app.post("/cron/send-reminders")
 def cron_send_reminders(secret: str = ""):
-    if secret != os.environ.get("CRON_SECRET", ""):
+    cron_secret = os.environ.get("CRON_SECRET", "")
+    if not cron_secret or secret != cron_secret:
         raise HTTPException(status_code=401, detail="Unauthorized")
     return send_streak_reminders()
 
