@@ -173,6 +173,22 @@ class TestValidation:
         })
         assert resp.status_code == 422
 
+    def test_malformed_game_date_returns_400(self, client):
+        resp = client.post("/scores", json={
+            "user_id": "u1",
+            "score": 7,
+            "game_date": "not-a-date",
+        })
+        assert resp.status_code == 400
+
+    def test_wrong_date_format_returns_400(self, client):
+        resp = client.post("/scores", json={
+            "user_id": "u1",
+            "score": 7,
+            "game_date": "14-04-2026",  # DD-MM-YYYY instead of YYYY-MM-DD
+        })
+        assert resp.status_code == 400
+
     def test_username_defaults_to_ninja(self, client_with_mock):
         client, sb = client_with_mock
         sb.table.return_value.select.return_value.eq.return_value.execute.return_value.data = []

@@ -156,7 +156,10 @@ def health():
 @app.post("/scores")
 def save_score(req: SaveScoreRequest):
     today = req.game_date
-    yesterday = (datetime.strptime(today, "%Y-%m-%d") - timedelta(days=1)).strftime("%Y-%m-%d")
+    try:
+        yesterday = (datetime.strptime(today, "%Y-%m-%d") - timedelta(days=1)).strftime("%Y-%m-%d")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="game_date must be in YYYY-MM-DD format")
     supabase.table("game_results").upsert({
         "user_id": req.user_id, "game_date": today, "score": req.score,
         "total": req.total, "username": req.username,
